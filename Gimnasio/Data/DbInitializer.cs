@@ -29,52 +29,54 @@ namespace Gimnasio.Data
             g.Direccion = "Riobamba 2972";
             g.Latitud = geo.Latitude(g.Direccion, "Rosario", "Santa Fe");
             g.Longitud = geo.Longitude(g.Direccion, "Rosario", "Santa Fe");
-            g.Logo = "~Imagenes\\Logo_Gym.jpg";            
+            g.Logo = "~Imagenes\\Logo_Gym.jpg";
             context.Gyms.Add(g);
-            context.SaveChanges();        
+            context.SaveChanges();
 
             //Registro Roles
             var rols = new IdentityRole[]
             {
                 new IdentityRole{Name="Desarrollador"},
                 new IdentityRole{Name="Administrador" },
-                new IdentityRole{Name="Usuario"}                
+                new IdentityRole{Name="Usuario"}
             };
-            foreach(IdentityRole r in rols)
+            foreach (IdentityRole r in rols)
             {
                 context.Roles.Add(r);
             }
             context.SaveChanges();
 
             //Registro Desarrollador
-            string password = "ADMIN";
+
             var user = new ApplicationUser
             {
-                Email = "hernancarballo@hotmail.com",
-                EmailConfirmed = true,
-                UserName = "hernancarballo@hotmail.com",
-                PasswordHash = GetHashCode(),
+                AccessFailedCount = 0,
+                ConcurrencyStamp = "1459792f - 599c - 4726 - 9d67 - 63d6809bc6b3",
+                Email = "admin@hotmail.com",
+                EmailConfirmed = false,
+                LockoutEnabled=true,
+                LockoutEnd=null,
+                NormalizedEmail= "ADMIN@HOTMAIL.COM",
+                NormalizedUserName= "ADMIN@HOTMAIL.COM",
+                PasswordHash= "AQAAAAEAACcQAAAAELtoMu6BMDi48VLjnFvqNx6Tlt612MZiP3eptPw4klqMsLXfWBwnlBj8dXyAmRj/xA==",
+                SecurityStamp= "f3269f83-31d5-436b-bfd1-508b9e668d72",
+                TwoFactorEnabled=false,
+                UserName = "admin@hotmail.com",
                 UserRol = "Desarrollador"
             };
-
             context.Users.Add(user);
             context.SaveChanges();
 
-            //Asignar Rol
-           
-                        
-            
-            
-                               
-                    
-                
-
-                
-            
-
-
-
-
         }
+
     }
 }
+
+
+
+
+
+
+
+
+        
