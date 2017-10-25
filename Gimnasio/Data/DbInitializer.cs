@@ -46,7 +46,7 @@ namespace Gimnasio.Data
             }
             context.SaveChanges();
 
-            //Registro Desarrollador
+            //Registro Desarrollador (User: admin@hotmail.com  //  Password: @Admin17
 
             var user = new ApplicationUser
             {
