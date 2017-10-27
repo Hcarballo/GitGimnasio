@@ -14,9 +14,10 @@ namespace Gimnasio.Models.AccountViewModels
 
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Recordar Contraseña?")]
         public bool RememberMe { get; set; }
     }
 }
