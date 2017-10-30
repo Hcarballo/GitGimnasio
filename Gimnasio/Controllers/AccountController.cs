@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Gimnasio.Models;
 using Gimnasio.Models.AccountViewModels;
 using Gimnasio.Services;
+using Gimnasio.Data;
 
 namespace Gimnasio.Controllers
 {
@@ -24,17 +25,20 @@ namespace Gimnasio.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly GimnasioDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            GimnasioDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [TempData]
@@ -50,12 +54,13 @@ namespace Gimnasio.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-
+        
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -65,6 +70,7 @@ namespace Gimnasio.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var user = _context.Users.Where(x=>x.Email == model.Email).FirstOrDefault();
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

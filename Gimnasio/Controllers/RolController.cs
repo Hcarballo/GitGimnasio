@@ -10,12 +10,17 @@ namespace Gimnasio.Controllers
 {
     public class RolController : Controller
     {
-        GimnasioDbContext context;
+        private readonly GimnasioDbContext _context;
+
+        public RolController(GimnasioDbContext context)
+        {
+            _context = context;
+        }
 
             
         public IActionResult Index()
         {
-            var roles = context.Roles.ToList();
+            var roles = _context.Roles.ToList();
             return View(roles);
         }
     }
