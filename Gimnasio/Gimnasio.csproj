@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-Gimnasio-589E66D2-8E5C-4A0B-AA68-E171952B92E6</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Imagenes\**" />
+    <Content Remove="Imagenes\**" />
+    <EmbeddedResource Remove="Imagenes\**" />
+    <None Remove="Imagenes\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.1" />
@@ -21,10 +28,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\images\Logo_Gym.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Imagenes\" />
   </ItemGroup>
 
 </Project>
