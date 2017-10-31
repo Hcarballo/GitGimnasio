@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Gimnasio.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Gimnasio.Controllers
 {
@@ -15,6 +16,7 @@ namespace Gimnasio.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult HomeDesarrollador()
         {
             return View();

@@ -62,6 +62,7 @@ namespace Gimnasio.Controllers
         {
 
             ViewData["ReturnUrl"] = returnUrl;
+            RedirecPage rp = new RedirecPage();
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -70,8 +71,8 @@ namespace Gimnasio.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var user = _context.Users.Where(x=>x.Email == model.Email).FirstOrDefault();
-                    return RedirectToLocal(returnUrl);
+                    returnUrl =  rp.Url(_context, model.Email);
+                    return RedirectToAction(returnUrl,"Home");
                 }
                 if (result.RequiresTwoFactor)
                 {

@@ -62,11 +62,12 @@ namespace Gimnasio.Data
                 SecurityStamp= "f3269f83-31d5-436b-bfd1-508b9e668d72",
                 TwoFactorEnabled=false,
                 UserName = "admin@hotmail.com",
-                UserRol = "Desarrollador"
+                UserRol = "Desarrollador",                
             };
+
             context.Users.Add(user);
             context.SaveChanges();
-
+            
         }
 
     }
