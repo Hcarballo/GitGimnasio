@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Gimnasio.Data;
+using Microsoft.AspNetCore.Identity;
+using Gimnasio.Models;
 
 namespace Gimnasio
 {
@@ -23,8 +25,8 @@ namespace Gimnasio
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<GimnasioDbContext>();
-                    DbInitializer.Initialize(context);
+                    var context = services.GetRequiredService<GimnasioDbContext>();                   
+                    DbInitializer.Initialize(context);                    
                 }
                 catch (Exception ex)
                 {

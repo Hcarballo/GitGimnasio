@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Gimnasio.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Gimnasio.Data
 {
@@ -26,6 +27,7 @@ namespace Gimnasio.Data
         public DbSet<Pago> Pagos { get; set; }
         public DbSet<Profesor> Profesores { get; set; }
         public DbSet<Socio> Socios { get; set; }
+        public DbSet<IdentityRole> identityRole { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

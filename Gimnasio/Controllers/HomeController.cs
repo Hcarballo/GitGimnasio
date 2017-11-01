@@ -16,7 +16,7 @@ namespace Gimnasio.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Desarrollador")]
         public IActionResult HomeDesarrollador()
         {
             return View();

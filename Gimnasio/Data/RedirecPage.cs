@@ -11,18 +11,21 @@ namespace Gimnasio.Data
         {
             string url = null;
             var user = context.Users.Where(x => x.Email == email).FirstOrDefault();
-            if(user.UserRol == "Desarrollador")
+            var rol = context.UserRoles.Where(x => x.UserId == user.Id).FirstOrDefault();
+            var rolName = context.Roles.Where(x=>x.Id == rol.RoleId).FirstOrDefault();
+
+            if (rolName.Name == "Desarrollador")
             {
                 url = "HomeDesarrollador";
             }
-            if(user.UserRol == "Administrador")
+            if (rolName.Name == "Administrador")
             {
                 url = "HomeAdministrador";
             }
-            if(user.UserRol == "Usuario")
+            if (rolName.Name == "Usuario")
             {
                 url = "HomeUsuario";
-            }           
+            }
 
             return url;
         }

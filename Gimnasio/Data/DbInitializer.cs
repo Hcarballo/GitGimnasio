@@ -29,16 +29,16 @@ namespace Gimnasio.Data
             g.Direccion = "Riobamba 2972";
             g.Latitud = geo.Latitude(g.Direccion, "Rosario", "Santa Fe");
             g.Longitud = geo.Longitude(g.Direccion, "Rosario", "Santa Fe");
-            g.Logo = "~Imagenes\\Logo_Gym.jpg";
+            g.Logo = "~imagenes\\Logo_Gym.jpg";
             context.Gyms.Add(g);
             context.SaveChanges();
 
             //Registro Roles
             var rols = new IdentityRole[]
             {
-                new IdentityRole{Name="Desarrollador"},
-                new IdentityRole{Name="Administrador" },
-                new IdentityRole{Name="Usuario"}
+                new IdentityRole{Name="Desarrollador", NormalizedName="DESARROLLADOR" },
+                new IdentityRole{Name="Administrador",NormalizedName="ADMINISTRACION" },
+                new IdentityRole{Name="Usuario", NormalizedName="USUARIO" }
             };
             foreach (IdentityRole r in rols)
             {
@@ -54,20 +54,28 @@ namespace Gimnasio.Data
                 ConcurrencyStamp = "1459792f - 599c - 4726 - 9d67 - 63d6809bc6b3",
                 Email = "admin@hotmail.com",
                 EmailConfirmed = false,
-                LockoutEnabled=true,
-                LockoutEnd=null,
-                NormalizedEmail= "ADMIN@HOTMAIL.COM",
-                NormalizedUserName= "ADMIN@HOTMAIL.COM",
-                PasswordHash= "AQAAAAEAACcQAAAAELtoMu6BMDi48VLjnFvqNx6Tlt612MZiP3eptPw4klqMsLXfWBwnlBj8dXyAmRj/xA==",
-                SecurityStamp= "f3269f83-31d5-436b-bfd1-508b9e668d72",
-                TwoFactorEnabled=false,
+                LockoutEnabled = true,
+                LockoutEnd = null,
+                NormalizedEmail = "ADMIN@HOTMAIL.COM",
+                NormalizedUserName = "ADMIN@HOTMAIL.COM",
+                PasswordHash = "AQAAAAEAACcQAAAAELtoMu6BMDi48VLjnFvqNx6Tlt612MZiP3eptPw4klqMsLXfWBwnlBj8dXyAmRj/xA==",
+                SecurityStamp = "f3269f83-31d5-436b-bfd1-508b9e668d72",
+                TwoFactorEnabled = false,
                 UserName = "admin@hotmail.com",
-                UserRol = "Desarrollador",                
             };
 
             context.Users.Add(user);
             context.SaveChanges();
-            
+
+            //Registro Usuario-Rol
+            var rol = context.Roles.Where(x => x.Name == "Desarrollador").FirstOrDefault();
+            var use = context.Users.Where(x => x.Email == "admin@hotmail.com").FirstOrDefault();
+
+            IdentityUserRole<string> identityUserRole = new IdentityUserRole<string>();
+            identityUserRole.RoleId = rol.Id;
+            identityUserRole.UserId = use.Id;
+            context.UserRoles.Add(identityUserRole);          
+            context.SaveChanges();
         }
 
     }
