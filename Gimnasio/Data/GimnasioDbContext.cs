@@ -44,5 +44,7 @@ namespace Gimnasio.Data
             modelBuilder.Entity<Profesor>().ToTable("Profesor");
             modelBuilder.Entity<Socio>().ToTable("Socio");
         }
+
+        public DbSet<Gimnasio.Models.ApplicationUser> ApplicationUser { get; set; }
     }
 }
