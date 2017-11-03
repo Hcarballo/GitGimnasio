@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Gimnasio.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Gimnasio.Models.AccountViewModels
 {
@@ -23,5 +25,31 @@ namespace Gimnasio.Models.AccountViewModels
         [Display(Name = "Confirmar password")]
         [Compare("Password", ErrorMessage = "El password y la confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Perfil")]
+        [UIHint("List")]
+        public List<SelectListItem> Roles { get; set; }
+        public  IEnumerable<string> Role { get; set; }
+
+        public RegisterViewModel()
+        {
+            Roles = new List<SelectListItem>();
+        }
+        
+        public void getRoles(GimnasioDbContext context)
+        {
+            var roles = from r in context.identityRole select r;
+            var listRole = roles.ToList();
+
+            foreach(var Data in listRole)
+            {
+                Roles.Add(new SelectListItem()
+                {
+                    Value = Data.Id,
+                    Text = Data.Name,
+                });
+            }
+        }
     }
 }

@@ -215,8 +215,10 @@ namespace Gimnasio.Controllers
         [Authorize]
         public IActionResult Register(string returnUrl = null)
         {
+            RegisterViewModel R = new RegisterViewModel();
+            R.getRoles(_context);
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return View(R);
         }
 
         [HttpPost]
@@ -229,6 +231,7 @@ namespace Gimnasio.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                await _userManager.AddToRolesAsync(user, model.Role);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -238,8 +241,9 @@ namespace Gimnasio.Controllers
                     await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index","ApplicationUsers");
                 }
                 AddErrors(result);
             }
