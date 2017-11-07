@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Gimnasio.Models;
 using Microsoft.AspNetCore.Identity;
+using Gimnasio.Models.AccountViewModels;
 
 namespace Gimnasio.Data
 {
@@ -46,5 +47,7 @@ namespace Gimnasio.Data
         }
 
         public DbSet<Gimnasio.Models.ApplicationUser> ApplicationUser { get; set; }
+
+        public DbSet<Gimnasio.Models.AccountViewModels.UserViewModel> UserViewModel { get; set; }
     }
 }

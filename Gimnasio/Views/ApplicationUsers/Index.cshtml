@@ -1,10 +1,12 @@
-﻿@model IEnumerable<Gimnasio.Models.ApplicationUser>
+﻿@model IEnumerable<Gimnasio.Models.AccountViewModels.UserViewModel>
 
 @{
     ViewData["Title"] = "Index";
+
+    var perfil = ViewBag.viewBag;
 }
 
-<h2>Index</h2>
+<h2>Gestion Usuarios</h2>
 
 <p>
     <a asp-action="Create">Agregar Usuario</a>
@@ -13,14 +15,17 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserName)
-                </th>               
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
-                </th>  
-            <th>
-                @Html.DisplayNameFor(model=>model.Activo)
-            </th>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Activo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Perfil)
+                </th>
             <th></th>
         </tr>
     </thead>
@@ -28,19 +33,31 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>           
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
-            </td>   
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Activo)
-            </td>      
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
-        </tr>}
+            <td>
+                @Html.DisplayFor(modelItem => item.Perfil)
+            </td>
+            <td>                 
+                    @if (perfil != "Desarrollador" && item.Perfil == "Usuario")
+                    {
+                 <a asp-action="Edit" asp-route-id="@item.ID">Editar</a> 
+                <a asp-action="Delete" asp-route-id = "@item.ID"> | Borrar</a>
+                    }
+                    @if(perfil == "Desarrollador")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ID">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID"> | Borrar</a>
+                    }
+
+            </td>
+        </tr>
+}
     </tbody>
 </table>

@@ -22,6 +22,12 @@ namespace Gimnasio.Controllers
             return View();
         }
 
+        [Authorize(Roles ="Desarrollador, Administrador")]
+        public IActionResult HomeAdministrador()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

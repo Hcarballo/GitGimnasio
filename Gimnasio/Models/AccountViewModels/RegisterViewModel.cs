@@ -30,25 +30,40 @@ namespace Gimnasio.Models.AccountViewModels
         [Display(Name = "Perfil")]
         [UIHint("List")]
         public List<SelectListItem> Roles { get; set; }
-        public  IEnumerable<string> Role { get; set; }
+        public  IEnumerable<string> Role { get; set; }        
 
         public RegisterViewModel()
         {
             Roles = new List<SelectListItem>();
         }
         
-        public void getRoles(GimnasioDbContext context)
+        public void getRoles(GimnasioDbContext context, string user)
         {
+            var userAct = context.Users.Where(x => x.Email == user).FirstOrDefault();
+            var rolUser = context.UserRoles.Where(x => x.UserId == userAct.Id).FirstOrDefault();
+            var rolName = context.Roles.Where(x => x.Id == rolUser.RoleId).FirstOrDefault();
             var roles = from r in context.identityRole select r;
             var listRole = roles.ToList();
 
             foreach(var Data in listRole)
             {
-                Roles.Add(new SelectListItem()
+                if (rolName.Name == "Desarrollador")
                 {
-                    Value = Data.Id,
-                    Text = Data.Name,
-                });
+                    Roles.Add(new SelectListItem()
+                    {
+                        Value = Data.Id,
+                        Text = Data.Name,
+                    });
+                }
+                if (rolName.Name == "Administrador" && Data.Name != "Desarrollador")
+                {
+                    Roles.Add(new SelectListItem()
+                    {
+                        Value = Data.Id,
+                        Text = Data.Name,
+                    });
+                }            
+               
             }
         }
     }

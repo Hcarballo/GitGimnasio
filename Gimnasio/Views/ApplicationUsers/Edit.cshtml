@@ -6,7 +6,6 @@
 
 <h2>Editar Usuario</h2>
 
-<h4></h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,14 +17,14 @@
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
-           
+            <input type="hidden" asp-for="NormalizedUserName" />            
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-           
-          
+            <input type="hidden" asp-for="NormalizedEmail" />
+            <input type="hidden" asp-for="EmailConfirmed" />
             <div class="form-group">
                 <div class="checkbox">
                     <label>
@@ -33,15 +32,16 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Roles" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    @Html.DropDownList("Role", new SelectList(Model.Roles, "Text", "Text"))
-                </div>
-            </div>
-            <br />
-            <br /> 
-           
+            <input type="hidden" asp-for="PasswordHash" />
+            <input type="hidden" asp-for="SecurityStamp" />
+            <input type="hidden" asp-for="ConcurrencyStamp" />
+            <input type="hidden" asp-for="PhoneNumber" />
+            <input type="hidden" asp-for="PhoneNumberConfirmed" />
+            <input type="hidden" asp-for="TwoFactorEnabled" />
+            <input type="hidden" asp-for="LockoutEnd" />
+            <input type="hidden" asp-for="LockoutEnabled" />
+            <input type="hidden" asp-for="AccessFailedCount" />
+            
             <div class="form-group">
                 <input type="submit" value="Aceptar" class="btn btn-default" />
             </div>
@@ -50,6 +50,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Regresar</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
