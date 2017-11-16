@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gimnasio.Data;
 using Gimnasio.Models;
+using Gimnasio.Models.AccountViewModels;
 
 namespace Gimnasio.Controllers
 {
@@ -64,6 +65,93 @@ namespace Gimnasio.Controllers
             }
             return View(socio);
         }
+
+        public IActionResult Ingresos()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Ingresos([Bind("dni")]string dni)
+        //{
+        //    var socio = await _context.Socios.Where(x => x.DNI == dni).FirstOrDefaultAsync();
+        //    if (socio != null)
+        //    {
+        //        SocioViewModel socioVM = new SocioViewModel();
+        //        Pago pago = await _context.Pagos.Where(x => x.Socio.ID == socio.ID).LastOrDefaultAsync();
+
+        //        socioVM.Activo = socio.Activo;
+        //        socioVM.Apellido = socio.Apellido;
+        //        socioVM.Nombre = socio.Nombre;
+        //        socioVM.Dni = socio.DNI;
+        //        socioVM.Fecha_Ing = socio.Fecha_Ing;
+        //        if (pago != null)
+        //        {
+        //            socioVM.Ultimo_Pago = pago.Fecha_Pago;
+        //            if (pago.Fecha_Pago.Month != DateTime.Today.Month && pago.Fecha_Pago.Year != DateTime.Today.Year)
+        //            {
+        //                socioVM.Cuota = "El socio debe" + Convert.ToInt16(DateTime.Today - pago.Fecha_Pago) + "dias";
+        //            }
+        //            else
+        //            {
+        //                socioVM.Cuota = "Cuota al dia";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            socioVM.Cuota = "No se registran Pagos";
+        //        }
+
+        //        return View("_Ingresos", socioVM);
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
+
+        //}
+
+       [HttpPost]
+        public ActionResult Ingresos(string dni)
+        {
+            var socio = _context.Socios.Where(x => x.DNI == dni).FirstOrDefault();
+            if (socio != null)
+            {
+                SocioViewModel socioVM = new SocioViewModel();
+                Pago pago = _context.Pagos.Where(x => x.Socio.ID == socio.ID).LastOrDefault();
+
+                socioVM.Activo = socio.Activo;
+                socioVM.Apellido = socio.Apellido;
+                socioVM.Nombre = socio.Nombre;
+                socioVM.Dni = socio.DNI;
+                socioVM.Fecha_Ing = socio.Fecha_Ing;
+                if (pago != null)
+                {
+                    socioVM.Ultimo_Pago = pago.Fecha_Pago;
+                    if (pago.Fecha_Pago.Month != DateTime.Today.Month && pago.Fecha_Pago.Year != DateTime.Today.Year)
+                    {
+                        socioVM.Cuota = "El socio debe" + Convert.ToInt16(DateTime.Today - pago.Fecha_Pago) + "dias";
+                    }
+                    else
+                    {
+                        socioVM.Cuota = "Cuota al dia";
+                    }
+                }
+                else
+                {
+                    socioVM.Cuota = "No se registran Pagos";
+                }
+
+                return View("_Ingresos", socioVM);
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
 
         // GET: Socios/Edit/5
         public async Task<IActionResult> Edit(int? id)

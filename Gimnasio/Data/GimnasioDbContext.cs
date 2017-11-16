@@ -49,5 +49,7 @@ namespace Gimnasio.Data
         public DbSet<Gimnasio.Models.ApplicationUser> ApplicationUser { get; set; }
 
         public DbSet<Gimnasio.Models.AccountViewModels.UserViewModel> UserViewModel { get; set; }
+
+        public DbSet<Gimnasio.Models.AccountViewModels.SocioViewModel> SocioViewModel { get; set; }
     }
 }
